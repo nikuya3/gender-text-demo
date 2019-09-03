@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="uft-8">
+    <title>Author gender detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/mini-nord.min.css') }}" />
+</head>
+<body>
+<div style="margin-left: 1em">
+    <h1 style="margin-top: 1em">Author gender detection</h1>
+    <p>A probabilistic model which attempts to detect the authors' gender using a sample text.</p>
+
+    <p>The detection is done using character-level convolutional neural networks.</p>
+
+    <p>The neural networks were trained on English blogs, so similar text samples should work the best.</p>
+
+    <p>Keep in mind that this demo uses a less accurate prediction model due to resource constraints.</p>
+
+    <p>More information:</p>
+    <ul>
+        <li><a href="https://www.github.com/nikuya3/text-char-dnn">Implementation repository</a></li>
+        <li><a href="https://www.github.com/nikuya3/gender-text-demo">Web app repository</a></li>
+        <li><a href="https://www.nikuya.at/papers/char.pdf">Paper</a></li>
+    </ul>
+
+    {% if gender %}
+    <div id="result">
+        <h2>Result</h2>
+        <p>Gender: {{gender}}</p>
+        <p>Probability of female: {{'%0.2f' % probability}}%</p>
+    </div>
+    {% endif %}
+</div>
+
+<form action="/predict/text" method="post">
+    <fieldset>
+        <div class="row">
+            <textarea id="text" name="text" minlength="100" maxlength="1000" style="width: 100%; height:30em"></textarea>
+        </div>
+        <div class="row">
+            <button class="primary" type="submit">Detect</button>
+        </div>
+    </fieldset>
+</form>
+
+</body>
+</html>
